@@ -7,20 +7,31 @@
       <ul>
         <li v-for="subject in matchedSubjects" :key="subject.id">
           {{ subject.name }}
+          <button class="btn btn-link" @click="showKurserFor(subject)">Visa kurser</button>
         </li>
       </ul>
+    </div>
+    <div v-if="showKurser">
+      <Kurser :subject=showKurser></Kurser>
     </div>
   </div>
 </template>
 
 <script>
 import _ from 'lodash'
+import Kurser from './Kurser'
 
 export default {
   name: 'Susanavet',
+  
+  components: {
+    Kurser
+  },
+
   data () {
     return {
         subjects: false,
+        showKurser: false,
         matchedSubjects: [],
     }
   },
@@ -36,6 +47,7 @@ export default {
   watch: {
       yrkesgrupp (yrkesgrupp) {
         this.matchedSubjects = []
+        this.showKurser = false
         for (let sunkod of yrkesgrupp.sunkoder) {
           let subject = this.findSubjectFromSunkod(sunkod)
           if (subject) {
@@ -46,9 +58,12 @@ export default {
   },
   
   methods: {
+      showKurserFor (subject) {
+        this.showKurser = subject
+      },
 
       findSubjectFromSunkod (sunkod) {
-          return _.find(this.subjects.content, { code: sunkod })
+          return _.find(this.subjects.content, { code: sunkod })
       },
 
       getInfos (subject) { 
