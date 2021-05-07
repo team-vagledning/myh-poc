@@ -2,7 +2,9 @@
   <div v-if="yrkesgrupp">
     <h2>{{ yrkesgrupp.name }}</h2>
     <div v-if="yrkesgrupp.sunkoder">
-      {{ yrkesgrupp.sunkoder.length }} st sunkoder varav {{ matchedSubjects.length }} st fanns i Susanavet
+      {{ yrkesgrupp.sunkoder.length }} st SUN-koder varav {{ matchedSubjects.length }} st fanns i Susanavet<br>
+      SSYK: {{ yrkesgrupp.ssyk }}<br>
+      SUN-koder: {{ yrkesgrupp.sunkoder.join(', ')}}<br>
 
       <ul>
         <li v-for="subject in matchedSubjects" :key="subject.id">
